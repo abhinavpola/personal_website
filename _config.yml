@@ -1,0 +1,9 @@
+# Site settings
+title: Blog
+author:
+  name: Abhinav Pola
+  email: abhinavpola7@gmail.com
+description: "My blog for cool stuff"
+
+# Build settings
+remote_theme: jekyll/minima
