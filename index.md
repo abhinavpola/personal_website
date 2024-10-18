@@ -12,6 +12,19 @@ title: Portfolio
   {% endfor %}
 </div>
 
+## Latest Blog Posts
+
+<ul>
+  {% for post in site.posts limit:5 %}
+  <li>
+    <a href="{{ post.url }}">{{ post.title }}</a> 
+    <small>{{ post.date | date: "%b %-d, %Y" }}</small>
+  </li>
+  {% endfor %}
+</ul>
+
+<a href="{{ '/blog/' }}">View All Posts</a>
+
 <style>
 .portfolio {
   display: flex;
