@@ -7,3 +7,11 @@ description: "My blog for cool stuff"
 
 # Build settings
 remote_theme: jekyll/minima
+
+# Other configuration settings
+
+header_pages:
+  - index.md
+  - _posts # Blog posts will be here
+  - resume.pdf # Link to your resume
+

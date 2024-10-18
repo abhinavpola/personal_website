@@ -1,0 +1,9 @@
+- title: "Project One"
+  description: "A brief description of Project One."
+  url: "https://example.com/project-one"
+
+- title: "Project Two"
+  description: "A brief description of Project Two."
+  url: "https://example.com/project-two"
+
+# Add more projects as needed
