@@ -12,6 +12,5 @@ remote_theme: jekyll/minima
 
 header_pages:
   - index.md
-  - _posts # Blog posts will be here
-  - resume.pdf # Link to your resume
+  - resume.md # Link to your resume
 
