@@ -1,6 +1,10 @@
 ---
 layout: home
+title: Portfolio
+list_title: Blog Posts
 ---
+
+## My Portfolio
 
 <div class="portfolio">
   {% for project in site.data.projects %}
