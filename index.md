@@ -1,7 +1,6 @@
 ---
 layout: home
 title: Portfolio
-list_title: Blog Posts
 ---
 <div class="portfolio">
   {% for project in site.data.projects %}
@@ -27,3 +26,5 @@ list_title: Blog Posts
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
+
+{{ content }}
