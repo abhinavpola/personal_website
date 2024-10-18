@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: base
 title: Portfolio
 ---
 <div class="portfolio">
@@ -7,7 +7,7 @@ title: Portfolio
   <div class="card">
     <h3>{{ project.title }}</h3>
     <p>{{ project.description }}</p>
-    <a href="{{ project.url }}">View Project</a>
+    <a href="{{ project.url }}" target="_blank">View Project</a>
   </div>
   {% endfor %}
 </div>
