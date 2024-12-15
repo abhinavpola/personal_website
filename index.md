@@ -29,7 +29,7 @@ title: Portfolio
 .portfolio {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .card {
   border: 1px solid #ddd;
