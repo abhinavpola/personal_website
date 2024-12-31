@@ -4,9 +4,9 @@ title: "My AI predictions for 2025"
 categories: artificial-intelligence
 ---
 
-I took the AI 2025 Forecasting Survey (https://bit.ly/ai-2025 ) and here are my predictions:
+I took the AI 2025 Forecasting Survey [here](https://bit.ly/ai-2025) and here are my predictions:
 
-![Image](/assets/images/ai-2025-forecasting-survey.png)
+![Image](/assets/images/ai-2025-forecast.png)
 
 * These are my predictions taking into account human cost parity. I don't think o3 meets this criteria.
 * But expensive RL models will be able to generate a lot of synthetic data. Hence, still think benchmark scores will go up for cheaper models.
