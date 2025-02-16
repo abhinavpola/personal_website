@@ -21,6 +21,28 @@
         nav ul li {
             display: inline;
         }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            main {
+                padding: 10px;
+                text-align: center;
+            }
+
+            #blog-previews ul {
+                padding-left: 0;
+            }
+
+            #blog-previews ul li {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -45,8 +67,8 @@
             <h2>Posts</h2>
             <ul>
                 <li>
-                    <a target="_blank"
-                        href="https://x.com/AbhinavPola/status/1888996430075052299">Automated creation demo using Sonnet computer-use</a>
+                    <a target="_blank" href="https://x.com/AbhinavPola/status/1888996430075052299">Automated creation
+                        demo using Sonnet computer-use</a>
                 </li>
                 <li>
                     <a target="_blank"
