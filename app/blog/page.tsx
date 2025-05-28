@@ -1,9 +1,9 @@
-import { title } from "@/components/primitives";
-import { getSortedPostsData } from "@/lib/posts";
 import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card";
 import { Divider } from "@heroui/divider";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
+
+import { getSortedPostsData } from "@/lib/posts";
 
 export default async function BlogPage() {
   const allPostsData = await getSortedPostsData();
@@ -22,14 +22,13 @@ export default async function BlogPage() {
               <p>{post.contentPreview}</p>
             </CardBody>
             <CardFooter>
-              <Button as={Link} href={`/blog/${post.id}`}>Read More</Button>
+              <Button as={Link} href={`/blog/${post.id}`}>
+                Read More
+              </Button>
             </CardFooter>
           </Card>
-        )
+        );
       })}
-
     </div>
-
-
   );
 }

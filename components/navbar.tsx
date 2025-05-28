@@ -1,5 +1,10 @@
 "use client";
-export { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/dropdown";
+export {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/dropdown";
 
 import {
   Navbar as HeroUINavbar,
@@ -7,10 +12,12 @@ import {
   NavbarBrand,
   NavbarItem,
 } from "@heroui/navbar";
-
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/dropdown";
-
-
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/dropdown";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
@@ -20,11 +27,7 @@ import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  SearchIcon,
-} from "@/components/icons";
+import { TwitterIcon, GithubIcon, SearchIcon } from "@/components/icons";
 
 export const Navbar = () => {
   const searchInput = (
@@ -53,16 +56,16 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <p className="font-bold text-inherit">Abhinav's Website</p>
+            <p className="font-bold text-inherit">Abhinav&apos;s Website</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
+          {siteConfig.navItems.map((item) =>
             item.children ? (
               <NavbarItem key={item.label + "dropdown"}>
                 <Dropdown>
                   <DropdownTrigger>
-                    <Link >{item.label}</Link>
+                    <Link>{item.label}</Link>
                   </DropdownTrigger>
                   <DropdownMenu>
                     {item.children.map((child) => (
@@ -73,7 +76,6 @@ export const Navbar = () => {
                   </DropdownMenu>
                 </Dropdown>
               </NavbarItem>
-
             ) : (
               <NavbarItem key={item.href}>
                 <NextLink
@@ -87,8 +89,8 @@ export const Navbar = () => {
                   {item.label}
                 </NextLink>
               </NavbarItem>
-            )
-          ))}
+            ),
+          )}
         </ul>
       </NavbarContent>
 
