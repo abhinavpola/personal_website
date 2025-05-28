@@ -9,7 +9,7 @@ export default async function BlogPage() {
   const allPostsData = await getSortedPostsData();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div>
       {allPostsData.map((post) => {
         return (
           <Card key={post.id} className="w-full max-w-lg">

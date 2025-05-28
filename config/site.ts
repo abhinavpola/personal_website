@@ -27,7 +27,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/abhinavpola/personal_website",
+    github: "https://github.com/abhinavpola/",
     twitter: "https://x.com/abhinavpola",
     linkedin: "https://www.linkedin.com/in/abhinav-pola/",
   },
