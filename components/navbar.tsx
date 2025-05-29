@@ -59,7 +59,7 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">Abhinav&apos;s Website</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+        <ul className="flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) =>
             item.children ? (
               <NavbarItem key={item.label + "dropdown"}>
