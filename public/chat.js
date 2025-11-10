@@ -46,6 +46,13 @@ async function sendMessage() {
 	// Don't send empty messages
 	if (message === "" || isProcessing) return;
 
+	// Get the Turnstile token
+	const token = turnstile.getResponse();
+	if (!token) {
+		addMessageToChat("assistant", "Please complete the verification challenge first.");
+		return;
+	}
+
 	// Disable input while processing
 	isProcessing = true;
 	userInput.disabled = true;
@@ -82,6 +89,7 @@ async function sendMessage() {
 			},
 			body: JSON.stringify({
 				messages: chatHistory,
+				token: token,
 			}),
 		});
 
@@ -148,6 +156,11 @@ async function sendMessage() {
 	} finally {
 		// Hide typing indicator
 		typingIndicator.classList.remove("visible");
+
+		// Reset Turnstile widget for next message
+		if (window.turnstile) {
+			turnstile.reset();
+		}
 
 		// Re-enable input
 		isProcessing = false;

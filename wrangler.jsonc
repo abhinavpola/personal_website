@@ -40,6 +40,7 @@
 	// "vars": { "MY_VARIABLE": "production_value" }
 	/**
 	 * Note: Use secrets to store sensitive data.
+	 * Store TURNSTILE_SECRET_KEY using: wrangler secret put TURNSTILE_SECRET_KEY
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
 	/**

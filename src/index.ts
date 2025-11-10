@@ -61,7 +61,7 @@ export default {
 		if (url.pathname === "/api/chat") {
 			// Handle POST requests for chat
 			if (request.method === "POST") {
-				const result = await handleChatRequest(request);
+				const result = await handleChatRequest(request, env);
 				if (result.ok) {
 					console.log("Chat request succeeded, streaming response");
 					return new Response(
@@ -95,12 +95,36 @@ export default {
  */
 async function handleChatRequest(
 	request: Request,
+	env: Env,
 ): Promise<Result<SendChatCompletionRequestResponse>> {
 	try {
 		// Parse JSON request body
-		const { messages = [] } = (await request.json()) as {
+		const { messages = [], token } = (await request.json()) as {
 			messages: ChatMessage[];
+			token: string;
 		};
+
+		// Validate Turnstile token
+		if (!token) {
+			return ERR("Missing Turnstile token");
+		}
+
+		const tokenValidation = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				secret: process.env.TURNSTILE_SECRET_KEY,
+				response: token,
+			}),
+		});
+
+		const validationResult = (await tokenValidation.json()) as { success: boolean };
+		if (!validationResult.success) {
+			console.error("Turnstile validation failed");
+			return ERR("Verification failed");
+		}
 
 		// Add system prompt if not present
 		if (!messages.some((msg) => msg.role === "system")) {
