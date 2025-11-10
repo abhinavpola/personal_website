@@ -1,0 +1,43 @@
+@config "../../tailwind.config.ts";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@source "../**/*.ts";
+@source "../**/*.tsx";
+@source "../node_modules/streamdown/dist/*.js";
+
+:root {
+  --background: 210 25% 98%;
+  --foreground: 222 25% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 20% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 20% 15%;
+  --primary: 222 25% 12%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 210 25% 94%;
+  --secondary-foreground: 222 20% 15%;
+  --muted: 210 22% 94%;
+  --muted-foreground: 215 14% 42%;
+  --accent: 210 18% 92%;
+  --accent-foreground: 222 20% 15%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 214 18% 90%;
+  --input: 214 18% 90%;
+  --ring: 222 20% 12%;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+::selection {
+  background: hsl(var(--accent));
+}

@@ -1,80 +1,44 @@
-# Personal Website
+# Personal Website (Next.js on Cloudflare Workers)
 
-### Prerequisites
+A streaming chat app built with Next.js, OpenRouter, and Cloudflare Workers. The UI uses the ElevenLabs Conversation component, with Turnstile verification and Llama Guard moderation.
 
-- [Node.js](https://nodejs.org/) (v18 or newer)
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
-- A Cloudflare account with Workers AI access
+## Prerequisites
 
-### Development
+- Node.js 18+
+- pnpm
+- Wrangler CLI
 
-Start a local development server:
+## Environment Variables
+
+Set these in your local shell, `.env.local`, or in Cloudflare Workers secrets:
+
+- `OPENROUTER_API_KEY`
+- `GROQ_API_KEY`
+- `TURNSTILE_SECRET_KEY`
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`
+
+## Development
+
+Run the Next.js dev server:
 
 ```bash
 pnpm run dev
 ```
 
-This will start a local server at http://localhost:8787.
+Preview in the Workers runtime:
 
-Note: Using Workers AI accesses your Cloudflare account even during local development, which will incur usage charges.
+```bash
+pnpm run preview
+```
 
-### Deployment
-
-Deploy to Cloudflare Workers:
+## Deployment
 
 ```bash
 pnpm run deploy
 ```
 
-### Monitor
+## Notes
 
-View real-time logs associated with any deployed Worker:
-
-```bash
-pnpm wrangler tail
-```
-
-## Project Structure
-
-```
-/
-├── public/             # Static assets
-│   ├── index.html      # Chat UI HTML
-│   └── chat.js         # Chat UI frontend script
-├── src/
-│   ├── index.ts        # Main Worker entry point
-│   └── types.ts        # TypeScript type definitions
-├── test/               # Test files
-├── wrangler.jsonc      # Cloudflare Worker configuration
-├── tsconfig.json       # TypeScript configuration
-└── README.md           # This documentation
-```
-
-## How It Works
-
-### Backend
-
-The backend is built with Cloudflare Workers and uses the Workers AI platform to generate responses. The main components are:
-
-1. **API Endpoint** (`/api/chat`): Accepts POST requests with chat messages and streams responses
-2. **Streaming**: Uses Server-Sent Events (SSE) for real-time streaming of AI responses
-3. **Workers AI Binding**: Connects to Cloudflare's AI service via the Workers AI binding
-
-### Frontend
-
-The frontend is a simple HTML/CSS/JavaScript application that:
-
-1. Presents a chat interface
-2. Sends user messages to the API
-3. Processes streaming responses in real-time
-4. Maintains chat history on the client side
-
-## Customization
-
-### Styling
-
-The UI styling is contained in the `<style>` section of `public/index.html`. You can modify the CSS variables at the top to quickly change the color scheme.
-
-## Resources
-
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+- Turnstile is required to send messages.
+- The API route streams responses using Server-Sent Events (SSE).
+- Moderation runs against Llama Guard 4 via Groq.

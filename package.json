@@ -1,38 +1,51 @@
 {
-	"name": "llm-chat-app-template",
-	"description": "A simple chat application powered by Cloudflare Workers AI",
-	"private": true,
-	"cloudflare": {
-		"label": "LLM Chat App",
-		"products": [
-			"Workers",
-			"Workers AI",
-			"AI Gateway"
-		],
-		"categories": [
-			"ai"
-		],
-		"docs_url": "https://developers.cloudflare.com/workers-ai/",
-		"preview_icon_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/a974bd55-20c6-4656-fa29-1551d43ddc00/public",
-		"preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/65dd8441-89d3-491d-c5a1-0a000d070700/preview",
-		"publish": true
-	},
-	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "0.8.44",
-		"@types/node": "^24.0.4",
-		"typescript": "5.8.3",
-		"vitest": "3.2.4",
-		"wrangler": "^4.46.0"
-	},
-	"scripts": {
-		"cf-typegen": "wrangler types",
-		"check": "tsc --noEmit && wrangler deploy --dry-run",
-		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"start": "wrangler dev",
-		"test": "vitest"
-	},
-	"dependencies": {
-		"@openrouter/sdk": "^0.1.6"
-	}
+  "name": "personal-website",
+  "description": "Personal website chat app powered by OpenRouter and Cloudflare Workers",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "lint": "biome lint . --vcs-enabled=true --vcs-use-ignore-file=true --vcs-client-kind=git",
+    "format": "biome format . --write --vcs-enabled=true --vcs-use-ignore-file=true --vcs-client-kind=git",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@openrouter/sdk": "^0.3.10",
+    "@radix-ui/react-slot": "^1.2.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.562.0",
+    "motion": "^12.23.26",
+    "next": "^15.5.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "streamdown": "^1.6.10",
+    "tailwind-merge": "^3.4.0",
+    "use-stick-to-bottom": "^1.1.1",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.10",
+    "@opennextjs/cloudflare": "^1.14.7",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "^25.0.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "typescript": "5.9.3",
+    "wrangler": "^4.54.0"
+  },
+  "postcss": {
+    "plugins": {
+      "@tailwindcss/postcss": {},
+      "autoprefixer": {}
+    }
+  }
 }

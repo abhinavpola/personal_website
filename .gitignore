@@ -160,6 +160,7 @@ dist
 
 # Serverless directories
 .serverless/
+.open-next/
 
 # FuseBox cache
 .fusebox/
