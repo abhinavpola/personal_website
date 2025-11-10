@@ -62,23 +62,25 @@ export default {
 			// Handle POST requests for chat
 			if (request.method === "POST") {
 				const result = await handleChatRequest(request);
-				if (result.ok) {
-					console.log("Chat request succeeded, streaming response");
-					return new Response(
-						eventStreamToReadableStream(
-							result.value as EventStream<ChatStreamingResponseChunkData>,
-						),
-						{
-							status: 200,
-							headers: { "Content-Type": "text/event-stream" },
-						},
-					);
-				} else {
-					console.error("Chat request failed:", result.error);
-					return new Response(JSON.stringify({ error: result.error }), {
-						status: 500,
-					});
-				}
+			if (result.ok) {
+				console.log("Chat request succeeded, streaming response");
+				return new Response(
+					eventStreamToReadableStream(
+						result.value as EventStream<ChatStreamingResponseChunkData>,
+					),
+					{
+						status: 200,
+						headers: { "Content-Type": "text/event-stream" },
+					},
+				);
+			} else {
+				console.error("Chat request failed:", result.error);
+				// Return 400 for validation errors (moderation, turnstile, etc)
+				return new Response(JSON.stringify({ error: result.error }), {
+					status: 400,
+					headers: { "Content-Type": "application/json" },
+				});
+			}
 			}
 
 			// Method not allowed for other request types
@@ -197,7 +199,9 @@ async function handleChatRequest(
 		// Return streaming response
 		return OK(response);
 	} catch (error) {
-		console.error("Error processing chat request:", error);
-		return ERR(error);
+		const errorMsg = error instanceof Error ? error.message : String(error);
+		console.error("Error processing chat request:", errorMsg);
+		console.error("Full error:", error);
+		return ERR(errorMsg);
 	}
 }
