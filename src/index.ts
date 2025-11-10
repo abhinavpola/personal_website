@@ -91,6 +91,54 @@ export default {
 } satisfies ExportedHandler<Env>;
 
 /**
+ * Checks if a user message is safe using Llama Guard 4
+ */
+async function checkMessageModeration(userMessage: string): Promise<boolean> {
+	try {
+		console.log("Checking moderation for message:", userMessage.slice(0, 50));
+		
+		const payload = {
+			model: "meta-llama/Llama-Guard-4-12B",
+			messages: [
+				{
+					role: "user",
+					content: userMessage,
+				},
+			],
+		};
+
+		console.log("Sending moderation request with payload:", JSON.stringify(payload).slice(0, 200));
+
+		const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+			},
+			body: JSON.stringify(payload),
+		});
+
+		if (!response.ok) {
+			const errorText = await response.text();
+			console.error("Moderation API error:", response.status, response.statusText);
+			console.error("Error response body:", errorText);
+			return true; // Default to allowing on API error
+		}
+
+		const data = (await response.json()) as {
+			choices?: Array<{ message?: { content?: string } }>;
+		};
+		const content = data.choices?.[0]?.message?.content || "";
+		const firstWord = content.trim().split(/\s+/)[0].toLowerCase();
+		console.log("Moderation result:", firstWord);
+		return firstWord === "safe";
+	} catch (error) {
+		console.error("Error checking message moderation:", error);
+		return true; // Default to allowing on error
+	}
+}
+
+/**
  * Handles chat API requests
  */
 async function handleChatRequest(
@@ -123,6 +171,16 @@ async function handleChatRequest(
 		if (!validationResult.success) {
 			console.error("Turnstile validation failed");
 			return ERR("Verification failed");
+		}
+
+		// Check moderation on the last user message
+		const lastUserMessage = messages.filter((msg) => msg.role === "user").pop();
+		if (lastUserMessage) {
+			const isSafe = await checkMessageModeration(lastUserMessage.content);
+			if (!isSafe) {
+				console.warn("Message flagged as unsafe by Llama Guard");
+				return ERR("Your message violates our content policy. Please try again with different content.");
+			}
 		}
 
 		// Add system prompt if not present

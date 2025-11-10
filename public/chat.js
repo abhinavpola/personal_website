@@ -95,7 +95,13 @@ async function sendMessage() {
 
 	// Handle errors
 	if (!response.ok) {
-		throw new Error("Failed to get response");
+		// Try to parse error message from response
+		try {
+			const errorData = await response.json();
+			throw new Error(errorData.error || "Failed to get response");
+		} catch {
+			throw new Error("Failed to get response");
+		}
 	}
 
 	// Process streaming response
@@ -149,10 +155,17 @@ async function sendMessage() {
 	chatHistory.push({ role: "assistant", content: responseText });
 	} catch (error) {
 		console.error("Error:", error);
-		addMessageToChat(
-			"assistant",
-			"Sorry, there was an error processing your request.",
-		);
+		
+		// Remove the user message we just added if there was an error
+		const lastMessage = chatMessages.lastElementChild;
+		if (lastMessage?.classList.contains("user-message")) {
+			lastMessage.remove();
+			chatHistory.pop(); // Remove from history
+		}
+		
+		// Show error message to user
+		const errorMessage = error.message || "Sorry, there was an error processing your request.";
+		addMessageToChat("assistant", errorMessage);
 	} finally {
 		// Hide typing indicator
 		typingIndicator.classList.remove("visible");
