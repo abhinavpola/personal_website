@@ -61,7 +61,7 @@ export default {
 		if (url.pathname === "/api/chat") {
 			// Handle POST requests for chat
 			if (request.method === "POST") {
-				const result = await handleChatRequest(request, env);
+				const result = await handleChatRequest(request);
 				if (result.ok) {
 					console.log("Chat request succeeded, streaming response");
 					return new Response(
@@ -95,7 +95,6 @@ export default {
  */
 async function handleChatRequest(
 	request: Request,
-	env: Env,
 ): Promise<Result<SendChatCompletionRequestResponse>> {
 	try {
 		// Parse JSON request body
