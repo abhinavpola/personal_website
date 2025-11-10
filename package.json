@@ -1,38 +1,50 @@
 {
-	"name": "llm-chat-app-template",
-	"description": "A simple chat application powered by Cloudflare Workers AI",
-	"private": true,
-	"cloudflare": {
-		"label": "LLM Chat App",
-		"products": [
-			"Workers",
-			"Workers AI",
-			"AI Gateway"
-		],
-		"categories": [
-			"ai"
-		],
-		"docs_url": "https://developers.cloudflare.com/workers-ai/",
-		"preview_icon_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/a974bd55-20c6-4656-fa29-1551d43ddc00/public",
-		"preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/65dd8441-89d3-491d-c5a1-0a000d070700/preview",
-		"publish": true
-	},
-	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "0.8.44",
-		"@types/node": "^24.0.4",
-		"typescript": "5.8.3",
-		"vitest": "3.2.4",
-		"wrangler": "^4.46.0"
-	},
-	"scripts": {
-		"cf-typegen": "wrangler types",
-		"check": "tsc --noEmit && wrangler deploy --dry-run",
-		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"start": "wrangler dev",
-		"test": "vitest"
-	},
-	"dependencies": {
-		"@openrouter/sdk": "^0.1.6"
-	}
+  "name": "personal-website",
+  "description": "Personal website chat app powered by OpenRouter and Cloudflare Workers",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "lint": "biome lint . --vcs-enabled=true --vcs-use-ignore-file=true --vcs-client-kind=git",
+    "format": "biome format . --write --vcs-enabled=true --vcs-use-ignore-file=true --vcs-client-kind=git",
+    "typecheck": "tsc --noEmit",
+    "knip": "knip"
+  },
+  "dependencies": {
+    "@assistant-ui/react": "^0.12.11",
+    "@assistant-ui/react-markdown": "^0.12.4",
+    "@assistant-ui/react-ui": "^0.2.1",
+    "@openrouter/sdk": "^0.9.11",
+    "lucide-react": "^0.575.0",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.4",
+    "@opennextjs/cloudflare": "^1.17.1",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "^25.3.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.24",
+    "biome-plugin-no-type-assertion": "^1.0.2",
+    "knip": "^5.85.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.19",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "5.9.3",
+    "wrangler": "^4.68.1"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  }
 }
