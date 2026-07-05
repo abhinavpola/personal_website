@@ -13,8 +13,8 @@ const client = new OpenRouter({
 const isLocal = process.env.NODE_ENV === "development";
 
 const MODELS = [
-  "google/gemini-3-flash-preview",
-  "arcee-ai/trinity-large-preview:free",
+  "google/gemini-3.1-flash-lite",
+  "nvidia/nemotron-3-ultra-550b-a55b:free",
   "openrouter/free",
 ];
 
