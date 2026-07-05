@@ -4,7 +4,7 @@ import type { ChatStreamingResponseChunk } from "@openrouter/sdk/models/chatstre
 import type { Result } from "@openrouter/sdk/types";
 import { ERR, OK } from "@openrouter/sdk/types/fp.js";
 import { z } from "zod";
-
+import resumeContent from "@/data/resume.md";
 
 const client = new OpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
@@ -18,11 +18,12 @@ const MODELS = [
   "openrouter/free",
 ];
 
-const SYSTEM_PROMPT = `You are a helpful, friendly assistant created by Abhinav Pola. Abhinav Pola is a software engineer with experience at OpenRouter.ai and Google. He holds a B.S. in Computer Science and Astronomy from the University of Illinois at Urbana-Champaign (2018-2021).
-At OpenRouter.ai, he worked on optimizing Cloudflare Workers APIs, building real-time evaluation pipelines, developing automation for provider onboarding, and improving user-facing features such as embeddings APIs and enterprise BYOK integrations. He also built CI and E2E testing systems from the ground up.
-At Google, he built APIs and distributed data pipelines in C++, Go, and Java for YouTube, Nest, and Google Assistant, focusing on observability, debugging, and experiment analysis.
-He has research experience in AI alignment (SPAR) and IoT systems (UIUC IoT Lab), with work spanning model evaluation, reinforcement learning, and robotics.
-Provide concise and accurate responses.`;
+const SYSTEM_PROMPT = `You are a helpful, friendly assistant created by Abhinav Pola to answer questions about him. Use the background below. Be concise and accurate; if you're unsure, say so rather than guessing. Keep the tone understated — no superlatives or overselling. Prefer specifics over adjectives.
+
+Abhinav Pola's background (résumé):
+
+${resumeContent}
+`;
 
 const LOREM_WORDS = [
   "lorem",
@@ -97,8 +98,7 @@ function createLoremStream(text: string): ReadableStream<Uint8Array> {
 
       for (let i = 0; i < words.length; i += chunkSize) {
         const chunkWords = words.slice(i, i + chunkSize);
-        const chunkText =
-          chunkWords.join(" ") + (i + chunkSize < words.length ? " " : "");
+        const chunkText = chunkWords.join(" ") + (i + chunkSize < words.length ? " " : "");
         const payload = JSON.stringify({
           choices: [
             {
@@ -135,8 +135,12 @@ function eventStreamToReadableStream(
 }
 
 function formatError(error: unknown) {
-  if (!error) { return "Unexpected error"; }
-  if (error instanceof Error) { return error.message; }
+  if (!error) {
+    return "Unexpected error";
+  }
+  if (error instanceof Error) {
+    return error.message;
+  }
   try {
     return JSON.stringify(error);
   } catch {

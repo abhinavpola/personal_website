@@ -5,10 +5,7 @@ import animate from "tailwindcss-animate";
 
 const config: Config = {
   darkMode: ["class"],
-  content: [
-    "./src/**/*.{ts,tsx}",
-    "./node_modules/@assistant-ui/react-ui/dist/**/*.js",
-  ],
+  content: ["./src/**/*.{ts,tsx}", "./node_modules/@assistant-ui/react-ui/dist/**/*.js"],
   theme: {
     extend: {
       fontFamily: {
