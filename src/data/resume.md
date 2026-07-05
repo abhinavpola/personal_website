@@ -1,13 +1,13 @@
 # Abhinav Pola
 
-abhinavpola7@gmail.com · [github.com/abhinavpola](https://github.com/abhinavpola) · [linkedin.com/in/abhinav-pola](https://www.linkedin.com/in/abhinav-pola)
+abhinavpola7@gmail.com * [github.com/abhinavpola](https://github.com/abhinavpola) * [linkedin.com/in/abhinav-pola](https://www.linkedin.com/in/abhinav-pola)
 
 ---
 
 ## Experience
 
-### OpenRouter.ai — Founding Engineer / Senior Software Engineer
-**June 2025 – Present** · Remote
+### OpenRouter.ai -- Founding Engineer / Senior Software Engineer
+**June 2025 - Present** * Remote
 
 Joined as one of the earlier engineers (~engineer #8, employee #11). These days I work as tech lead for the multimodal platform and provider ecosystem, though at a company this size I end up touching most of the stack.
 
@@ -37,30 +37,30 @@ Joined as one of the earlier engineers (~engineer #8, employee #11). These days 
 
 ---
 
-### Google — Software Engineer
-**February 2022 – May 2025** · Mountain View, CA
+### Google -- Software Engineer
+**February 2022 - May 2025** * Mountain View, CA
 
-**YouTube — Developer Experience & Productivity** (~2 years)
+**YouTube -- Developer Experience & Productivity** (~2 years)
 - Built infrastructure used for experiments and debugging in production. YouTube is one of the few Google products you can use without signing in, so some bugs only show up for signed-out users.
 - Built tooling to reproduce those signed-out bugs under specific experiment flags, and an internal Chrome extension for setting up debugging overrides.
 - Built a unified C++ and Java API for managing YouTube debug sessions across observability and experimentation platforms, used by a few hundred monthly active users.
 
-**Google Assistant / Nest — Observability**
+**Google Assistant / Nest -- Observability**
 - Wrote distributed C++ and Go data pipelines to process defect signals from Nest device logs, and built observability and triage tooling on top of a large centralized log table.
 - Built a Java and SQL "culprit finder" that flags potentially problematic experiments and launches using anomaly detection on user-satisfaction metrics.
 
 ---
 
-### Supervised Program for Alignment Research (SPAR) — Research Fellow (part-time)
-**February 2025 – May 2025**
+### Supervised Program for Alignment Research (SPAR) -- Research Fellow (part-time)
+**February 2025 - May 2025**
 - Ran automated red-teaming experiments using prompt prefilling, in-context learning, supervised fine-tuning, and reinforcement learning.
 - Showed that models can jailbreak their overseers using chain-of-thought reasoning; that work placed first at the Apart Research AI Control Hackathon.
 - Open-sourced the jailbreaking experiments and the safety-failure evaluation tooling.
 
 ---
 
-### IoT Lab at UIUC — Research Assistant
-**April 2020 – August 2020**
+### IoT Lab at UIUC -- Research Assistant
+**April 2020 - August 2020**
 - Wrote course material for CS 437 (Internet of Things) at UIUC, used by about a thousand students.
 - Built SLAM and A*-based navigation for an autonomous model car using data from a servo-mounted ultrasonic sensor.
 - Trained a TensorFlow CNN vision model on a Raspberry Pi camera module for real-time goal detection.
@@ -69,16 +69,16 @@ Joined as one of the earlier engineers (~engineer #8, employee #11). These days 
 
 ## Internships & Early Experience
 
-- Amazon Web Services (AWS) — Intern. Worked on serverless infrastructure for EC2 services; automated some control-plane setup.
-- CACI — Intern. Embedded systems role.
-- Capital One — Intern.
-- Coding4Youth — Intern / Instructor. My first internship; taught kids how to code.
+- Amazon Web Services (AWS) -- Intern. Worked on serverless infrastructure for EC2 services; automated some control-plane setup.
+- CACI -- Intern. Embedded systems role.
+- Capital One -- Intern.
+- Coding4Youth -- Intern / Instructor. My first internship; taught kids how to code.
 
 ---
 
 ## Education
 
-University of Illinois at Urbana-Champaign — B.S. in Computer Science and Astronomy, 2018–2021.
+University of Illinois at Urbana-Champaign -- B.S. in Computer Science and Astronomy, 2018-2021.
 
 Relevant coursework: Advanced Algorithms, Systems Programming, Advanced Computer Architecture, Formal Verification, Applied Machine Learning, Interactive Computer Graphics (WebGL), Scientific Computing.
 
