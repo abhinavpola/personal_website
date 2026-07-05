@@ -15,5 +15,12 @@
   "observability": {
     "enabled": true
   },
-  "upload_source_maps": true
+  "upload_source_maps": true,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "personal-website",
+      "database_id": "d68baf97-b9bc-47a8-871b-954f3986d0c3"
+    }
+  ]
 }

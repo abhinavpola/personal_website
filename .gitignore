@@ -139,6 +139,7 @@ web_modules/
 .next
 out
 next-env.d.ts
+cloudflare-env.d.ts
 
 # Nuxt.js build / generate output
 .nuxt

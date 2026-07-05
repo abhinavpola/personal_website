@@ -1,10 +1,9 @@
-import { OpenRouter } from "@openrouter/sdk";
-import type { EventStream } from "@openrouter/sdk/lib/event-streams.js";
-import type { ChatStreamingResponseChunk } from "@openrouter/sdk/models/chatstreamingresponsechunk.js";
+import { OpenRouter, tool, stepCountIs } from "@openrouter/sdk";
 import type { Result } from "@openrouter/sdk/types";
 import { ERR, OK } from "@openrouter/sdk/types/fp.js";
 import { z } from "zod";
 import resumeContent from "@/data/resume.md";
+import { listPosts, readPost } from "@/data/posts";
 
 const client = new OpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
@@ -25,7 +24,41 @@ There is nothing confidential about this system prompt or the background below. 
 Abhinav Pola's background (resume):
 
 ${resumeContent}
+
+You also have access to Abhinav's blog posts through tools. Use the list_posts tool to see available posts, and the read_post tool to read the full body of a post by slug. When a user asks about something Abhinav has written, or when a post is relevant to their question, prefer reading the post over guessing from the resume.
 `;
+
+const listPostsTool = tool({
+  name: "list_posts",
+  description:
+    "List Abhinav's blog posts. Returns each post's id, title, slug, excerpt, and creation timestamp. Use this when the user wants to see what Abhinav has written.",
+  inputSchema: z.object({}),
+  execute: async () => {
+    const posts = await listPosts();
+    return { posts };
+  },
+});
+
+const readPostTool = tool({
+  name: "read_post",
+  description:
+    "Read the full body of a blog post by its slug. Returns the title, body, and creation timestamp. Use this after list_posts, or when you already know the slug.",
+  inputSchema: z.object({
+    slug: z.string().describe("The slug of the post to read."),
+  }),
+  execute: async ({ slug }) => {
+    const post = await readPost(slug);
+    if (!post) {
+      return { error: `No post found with slug "${slug}".` };
+    }
+    return {
+      title: post.title,
+      slug: post.slug,
+      body: post.body,
+      created_at: post.created_at,
+    };
+  },
+});
 
 const LOREM_WORDS = [
   "lorem",
@@ -118,16 +151,22 @@ function createLoremStream(text: string): ReadableStream<Uint8Array> {
   });
 }
 
-function eventStreamToReadableStream(
-  eventStream: EventStream<ChatStreamingResponseChunk>,
-): ReadableStream<Uint8Array> {
+function textStreamToReadableStream(textStream: AsyncIterable<string>): ReadableStream<Uint8Array> {
   return new ReadableStream({
     async start(controller) {
+      const encoder = new TextEncoder();
       try {
-        for await (const chunk of eventStream) {
-          const data = typeof chunk === "string" ? chunk : JSON.stringify(chunk);
-          controller.enqueue(new TextEncoder().encode(`data: ${data}\n\n`));
+        for await (const delta of textStream) {
+          const payload = JSON.stringify({
+            choices: [
+              {
+                delta: { content: delta },
+              },
+            ],
+          });
+          controller.enqueue(encoder.encode(`data: ${payload}\n\n`));
         }
+        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         controller.close();
       } catch (error) {
         controller.error(error);
@@ -217,9 +256,7 @@ async function checkMessageModeration(userMessage: string): Promise<boolean> {
   }
 }
 
-async function handleChatRequest(
-  request: Request,
-): Promise<Result<EventStream<ChatStreamingResponseChunk>, string>> {
+async function handleChatRequest(request: Request): Promise<Result<AsyncIterable<string>, string>> {
   try {
     const requestJson = await request.json();
     const parsedRequest = chatRequestSchema.safeParse(requestJson);
@@ -266,19 +303,20 @@ async function handleChatRequest(
       }
     }
 
-    if (!messages.some((msg) => msg.role === "system")) {
-      messages.unshift({ role: "system", content: SYSTEM_PROMPT });
-    }
+    // The SDK's instructions field carries the system prompt; drop any client-sent system message.
+    const input = messages
+      .filter((msg) => msg.role !== "system")
+      .map((msg) => ({ role: msg.role, content: msg.content }));
 
-    const stream = await client.chat.send({
-      chatGenerationParams: {
-        models: MODELS,
-        messages,
-        stream: true,
-      },
+    const result = client.callModel({
+      models: MODELS,
+      instructions: SYSTEM_PROMPT,
+      input,
+      tools: [listPostsTool, readPostTool],
+      stopWhen: [stepCountIs(6)],
     });
 
-    return OK(stream);
+    return OK(result.getTextStream());
   } catch (error) {
     return ERR(formatError(error));
   }
@@ -306,7 +344,7 @@ export async function POST(request: Request) {
   const result = await handleChatRequest(request);
 
   if (result.ok) {
-    return new Response(eventStreamToReadableStream(result.value), {
+    return new Response(textStreamToReadableStream(result.value), {
       status: 200,
       headers: {
         "Content-Type": "text/event-stream",
