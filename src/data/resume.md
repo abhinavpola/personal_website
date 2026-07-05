@@ -24,7 +24,7 @@ Joined as one of the earlier engineers (~engineer #8, employee #11). These days 
 - Worked on infrastructure performance and stability: tail-worker telemetry for pre-OOM profiling, memory-leak diagnosis, and CPU/memory utilization.
 
 **Evals, benchmarking & provider automation**
-- Built evals and benchmarking infrastructure, including an in-house benchmarking harness for onboarding external evals (e.g. Terminal-Bench, Deep SWE, SWE Atlas). The harness supports external sandboxes and scales the agent-harness runner (Cloudflare Workers) out massively concurrently.
+- Built evals and benchmarking infrastructure, including an in-house benchmarking harness for onboarding external evals (e.g. Terminal-Bench, Deep SWE, SWE Atlas). The harness supports external sandboxes and scales the agent-harness runner (GCP Cloud Run) out massively concurrently.
 - Contributed to the "exacto" scoring system.
 - Put together the first automations for onboarding providers and endpoints, including running test suites to validate deployments, which brought onboarding time down from hours to minutes.
 
