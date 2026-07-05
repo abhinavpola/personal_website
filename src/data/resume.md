@@ -91,3 +91,15 @@ Areas I've spent time in: AI infrastructure, multimodal inference, API gateways,
 Languages: TypeScript, C++, Go, Java, SQL, Python.
 
 Platforms & tools: Cloudflare Workers, Durable Objects, Temporal, Datadog, ClickHouse, Trino, Spanner, GCP.
+
+---
+
+## About this website
+
+This site is a chat interface rather than a static resume. Part of the reason is that I just like the novelty. But the more forward-looking reason is a bet about where things are headed.
+
+Today the AI chat interface is disjoint from my own representation of myself -- I write the resume, and a model answers questions about me using it. In the long run I think those two things converge. I don't see humanity just stagnating while superintelligence takes off and pursues its own goals. We have an innate desire to excel at our own existence, and the way we keep that is by making sure we don't get gradually disempowered.
+
+That isn't a claim that we'll stay ahead of AI. There's no point in superintelligence if it isn't better than us at everything. It's a claim that we'll want to not be left behind, and that the path is augmentation rather than opposition.
+
+In that spirit, I think of this website as a portal into my mind, the way a blog is -- except that an AI can draw inferences about things I never explicitly wrote about. Someday, if we become AI-augmented beings, we'll be relying on AI to fill in the gaps for us in a way that's aligned. We shouldn't have any illusion that we'll be fully in control, even in that augmentation scenario. The best we can do is set things up so the gaps get filled in our direction.
