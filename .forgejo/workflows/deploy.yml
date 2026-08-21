@@ -27,11 +27,11 @@ jobs:
       - name: Build Jekyll site
         run: bundle exec jekyll build
 
+      - name: Install Node (needed by wrangler)
+        run: apt-get update -qq && apt-get install -y -qq nodejs npm
+
       - name: Deploy to Cloudflare Pages
-        # Fully-qualified URL so Forgejo clones it from GitHub instead of
-        # looking for a mirror on data.forgejo.org
-        uses: https://github.com/cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy _site --project-name=personal-website
+        run: npx --yes wrangler@latest pages deploy _site --project-name=personal-website
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
