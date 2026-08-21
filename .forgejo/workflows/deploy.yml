@@ -9,6 +9,13 @@ jobs:
     runs-on: docker
     container: ruby:4.0
     steps:
+      # Must run first: the ruby image has no node/git, which both the
+      # node-based actions below and wrangler need.
+      - name: Install system dependencies
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends git nodejs npm
+
       - name: Check out repository
         uses: actions/checkout@v4
 
