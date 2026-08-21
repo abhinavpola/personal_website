@@ -1,0 +1,20 @@
+<ul class="social-media-list">
+  {%- if site.forgejo_url -%}
+  <li>
+    <a href="{{ site.forgejo_url }}/{{ site.forgejo_username | cgi_escape | escape }}">
+      <svg class="svg-icon" viewBox="0 0 212 212" xmlns="http://www.w3.org/2000/svg" aria-label="Forgejo">
+        <g transform="translate(6,6)">
+          <path d="M58 168 v-98 a50 50 0 0 1 50-50 h20" fill="none" stroke="#ff6600" stroke-width="25"/>
+          <path d="M58 168 v-30 a50 50 0 0 1 50-50 h20" fill="none" stroke="#d40000" stroke-width="25"/>
+          <circle cx="142" cy="20" r="18" fill="none" stroke="#ff6600" stroke-width="15"/>
+          <circle cx="142" cy="88" r="18" fill="none" stroke="#d40000" stroke-width="15"/>
+          <circle cx="58" cy="180" r="18" fill="none" stroke="#d40000" stroke-width="15"/>
+        </g>
+      </svg>
+      <span class="username">{{ site.forgejo_username | escape }}</span>
+    </a>
+  </li>
+  {%- endif -%}
+  {%- if site.github_username -%}<li><a href="https://github.com/{{ site.github_username| cgi_escape | escape }}"><svg class="svg-icon"><use xlink:href="{{ '/assets/minima-social-icons.svg#github' | relative_url }}"></use></svg> <span class="username">{{ site.github_username| escape }}</span></a></li>{%- endif -%}
+  {%- if site.twitter_username -%}<li><a href="https://www.twitter.com/{{ site.twitter_username| cgi_escape | escape }}"><svg class="svg-icon"><use xlink:href="{{ '/assets/minima-social-icons.svg#twitter' | relative_url }}"></use></svg> <span class="username">{{ site.twitter_username| escape }}</span></a></li>{%- endif -%}
+</ul>
