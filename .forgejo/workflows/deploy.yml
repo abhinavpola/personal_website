@@ -28,7 +28,9 @@ jobs:
         run: bundle exec jekyll build
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        # Fully-qualified URL so Forgejo clones it from GitHub instead of
+        # looking for a mirror on data.forgejo.org
+        uses: https://github.com/cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
